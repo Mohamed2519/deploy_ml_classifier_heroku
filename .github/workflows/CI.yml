@@ -27,10 +27,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      
-      - name: Set up Python ${{ matrix.python-version }} # Name of an action that sets up Python.
-        uses: actions/setup-python@v2 # A pre-built GitHub Action that sets up a Python environment.
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
           
@@ -40,12 +39,31 @@ jobs:
           pip install pytest flake8 pylint # Install pytest flake8 pylint.
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi # If we have a requirements.txt, then install it.
   
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          role-duration-seconds: 500
+          role-session-name: Github_Action
           
-      - name: Run pylint
+      - name: DVC install
+        uses: iterative/setup-dvc@v1
+        
+      - name: Install dvc-s3
         run: |
-          pylint your_module_or_package
-
-      - name: Run pytest and flake8
+          python -m pip install --upgrade pip
+          python -m pip install dvc-s3
+          
+      - name: Pull
         run: |
-          pytest
-          flake8 your_module_or_package
+          dvc pull
+          
+      - name: Analysing the code with pylint
+        run: |
+          flake8 . --count --show-source --exit-zero --max-line-length=127 --statistics --max-complexity=1
+      
+      - name: Test
+        run: |
+          pytest starter/tests
