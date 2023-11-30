@@ -65,17 +65,14 @@ data = data.replace('?', None)
 data.dropna(inplace=True)
 data = data.applymap(lambda x: x.lower() if isinstance(x, str) else x)
 data.to_csv("./data/clean.csv", index=False)
-X_train, y_train, encoder, lb = process_data(train, categorical_features=cat_features, 
-                                             label="salary", training=True)
+X_train, y_train, encoder, lb = process_data(train, categorical_features=cat_features, label="salary", training=True)
 
 # Proces the test data with the process_data function.
-X_test, y_test, encoder, lb = process_data(test, categorical_features=cat_features,
-                                            label="salary", training=False, encoder=encoder, lb=lb)
+X_test, y_test, encoder, lb = process_data(test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb)
 
 
 logging.info("Training mdoels ..")
-md_lg = train_model(LogisticRegression(C=0.5, max_iter=500),
-                    X_train, y_train)
+md_lg = train_model(LogisticRegression(C=0.5, max_iter=500), X_train, y_train)
 
 
 logging.info("Saving results ..")
@@ -94,32 +91,12 @@ for col in ['sex', 'race']:
     slice_dir = f'./metrics/{folder}/'
     if not os.path.exists(slice_dir):
         os.makedirs(slice_dir)
-    evaluate_slices(
-        os.path.join(
-            slice_dir,
-            'slice_output.txt'),
-        md_lg,
-        col,
-        X_train,
-        y_train,
-        "train",
-        train,
-        lb)
+    evaluate_slices(os.path.join(slice_dir, 'slice_output.txt'), md_lg, col, X_train, y_train, "train", train, lb)
     folder = col + '_slice_test'
     slice_dir = f'./metrics/{folder}/'
     if not os.path.exists(slice_dir):
         os.makedirs(slice_dir)
-    evaluate_slices(
-        os.path.join(
-            slice_dir,
-            'slice_output.txt'),
-        md_lg,
-        col,
-        X_test,
-        y_test,
-        "test",
-        test,
-        lb)
+    evaluate_slices(os.path.join(slice_dir, 'slice_output.txt'), md_lg, col, X_test, y_test, "test", test, lb)
 
 logging.info("Saving models ..")
 joblib.dump(encoder, './models/encoder.pkl')

@@ -5,28 +5,12 @@ This script used for testing types and ranges
 """
 
 import great_expectations as ge
-
-
 def test_columns_exist(data: ge.dataset.PandasDataset):
-    print("ppp", data.columns)
-    expected_columns = ['age',
-        'workclass',
-        'fnlwgt',
-        'education',
-        'education-num',
-        'marital-status',
-        'occupation',
-        'relationship',
-        'race',
-        'sex',
-        'capital-gain',
-        'capital-loss',
-        'hours-per-week',
-        'native-country',
-        'salary']
+    expected_columns = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status',
+                        'occupation', 'relationship', 'race', 'sex', 'capital-gain', 'capital-loss',
+                        'hours-per-week', 'native-country', 'salary']
     for column in expected_columns:
-        assert data.expect_column_to_exist(
-            column)['success'], f"{column} does not exist"
+        assert data.expect_column_to_exist(column)['success'], f"{column} does not exist"
 
 
 def test_column_dtypes(data: ge.dataset.PandasDataset):
@@ -54,22 +38,6 @@ def test_column_dtypes(data: ge.dataset.PandasDataset):
 def test_education_num_column(data: ge.dataset.PandasDataset):
     assert data.expect_column_values_to_be_between('education-num', 1, 17)[
         'success'], "education_num column includes unknown category"
-
-
-# def test_marital_status(data: ge.dataset.PandasDataset):
-#     expected_categories = [
-#         'never-married', 'married-civ-spouse', 'divorced',
-#         'married-spouse-absent', 'separated', 'married-af-spouse', 'widowed'
-#     ]
-#     assert data.expect_column_distinct_values_to_equal_set('marital-status', expected_categories)[
-#         'success'], "marital_status column includes unknown category"
-
-
-# def test_label_salary(data: ge.dataset.PandasDataset):
-#     expected_classes = ['<=50k', '>50k']
-#     assert data.expect_column_distinct_values_to_equal_set('salary', expected_classes)[
-#         'success'], "salary column includes more than two classes"
-
 
 def test_hours_per_week_range(data: ge.dataset.PandasDataset):
     assert data.expect_column_values_to_be_between('hours-per-week', 1, 99)[

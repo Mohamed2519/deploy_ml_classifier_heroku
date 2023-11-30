@@ -22,7 +22,7 @@ def assert_response(response, expected_status, expected_method):
 def test_greetings():
     response = client.get('/')
     assert_response(response, HTTPStatus.OK, "GET")
-    assert response.json() == "Hello PPL"
+    assert response.json() == "Hello Geeks"
 
 
 @pytest.mark.parametrize('test_input, expected', [
