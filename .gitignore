@@ -7,7 +7,7 @@ __pycache__/
 *.so
 *.data
 *.pkl
-*.csv
+
 # Distribution / packaging
 .Python
 build/
