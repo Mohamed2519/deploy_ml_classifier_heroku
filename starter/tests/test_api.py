@@ -64,4 +64,4 @@ def test_missing_feature_predict():
     data = {"age": 0}
     response = client.post("/predict/", json=data)
     assert_response(response, HTTPStatus.UNPROCESSABLE_ENTITY, "POST")
-    assert response.json()["detail"][0]["type"] == "missing"
+    assert response.json()["detail"][0]["type"] == "value_error.missing"
