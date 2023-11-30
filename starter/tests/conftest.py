@@ -17,7 +17,7 @@ def data():
     Returns:
         df (ge.DataFrame): Data loaded from csv file
     """
-    file_path = r'/mnt/d/nd/Module2 Building a Reproducible Model Workflow/project4/deploy_ml_classifier_heroku/data/clean.csv'
+    file_path = './data/clean.csv'
     if not os.path.exists(file_path):
         pytest.fail(f"Data not found at path")
     df = pd.read_csv(file_path)
