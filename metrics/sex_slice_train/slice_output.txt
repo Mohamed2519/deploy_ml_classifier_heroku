@@ -1,0 +1,15 @@
+Model evaluation on sex slice of train data
+Category  Precision   Recall       F1
+  Female   0.299691 0.555344 0.389298
+    Male   0.261689 0.769828 0.390601
+
+Model evaluation on sex slice of train data
+Category  Precision   Recall       F1
+  Female   0.286920 0.546185 0.376210
+    Male   0.255631 0.770362 0.383878
+
+Model evaluation on sex slice of train data
+Category  Precision   Recall       F1
+  Female   0.280475 0.527383 0.366197
+    Male   0.263444 0.750267 0.389960
+
