@@ -45,7 +45,7 @@ def test_get_data():
 def test_post_data_success(data_low):
     data = json.dumps(data_low)
     r = client.post("/predict/", data=data)
-    assert r.status_code == 422
+    assert r.status_code == 200
 
 
 def test_post_data_fail():
@@ -58,13 +58,13 @@ def test_post_low(data_low):
     data = json.dumps(data_low)
     r = client.post("/predict/", data=data)
     print(r.json())
-    assert r.status_code == 422
+    assert r.status_code == 200
     assert r.json()['salary']  == '<=50K'
 
 def test_post_high(data_high):
     data = json.dumps(data_high)
     r = client.post("/predict/", data=data)
     print(r.json())
-    assert r.status_code == 422
+    assert r.status_code == 200
     assert r.json()['salary']  == '>50K'
 
