@@ -25,7 +25,7 @@ def convert_names(data):
 @pytest.fixture()
 def data_low():
     df = pd.read_csv("data/clean.csv")
-    test = df.drop('salary', axis=1).iloc[9].to_dict()
+    test = df.drop('salary', axis=1).iloc[15].to_dict()
     
     return convert_names(test)
     
@@ -59,12 +59,12 @@ def test_post_low(data_low):
     r = client.post("/predict/", data=data)
     print(r.json())
     assert r.status_code == 200
-    assert r.json()['salary']  == '<=50K'
+    assert r.json()['salary']  == '<=50k'
 
 def test_post_high(data_high):
     data = json.dumps(data_high)
     r = client.post("/predict/", data=data)
     print(r.json())
     assert r.status_code == 200
-    assert r.json()['salary']  == '>50K'
+    assert r.json()['salary']  == '>50k'
 
