@@ -22,6 +22,9 @@ The training data is divided using the `train_test_split` function from `sklearn
 ## Metrics
 
 Evaluation metrics includes Precision, Recall and F1 score.
+percision: 0.25
+recall: 0.695
+fbeta: 0.375
 
 ## Ethical Considerations
 
