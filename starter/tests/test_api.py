@@ -14,8 +14,8 @@ from app.main import app
 client = TestClient(app)
 
 def convert_names(data):
-    replace_names = ["education-num", "marital-status", "capital-gain", "hours-per-week", "native-country"]
-    new_names = ["educationnum", "maritalstatus", "capitalgain", "hoursperweek", "nativecountry" ]
+    replace_names = ["education-num", "marital-status", "capital-gain", "hours-per-week", "native-country","capital-loss"]
+    new_names = ["educationnum", "maritalstatus", "capitalgain", "hoursperweek", "nativecountry", "capitalloss"]
     for old_name, new_name in zip(replace_names, new_names):
         if old_name in data:
             data[new_name] = data.pop(old_name)
