@@ -9,7 +9,7 @@ import json
 import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
-from starter.app.main import app
+from app.main import app
 
 client = TestClient(app)
 
