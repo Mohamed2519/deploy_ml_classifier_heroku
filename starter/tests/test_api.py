@@ -15,12 +15,12 @@ client = TestClient(app)
 
 @pytest.fixture()
 def data_low():
-    df = pd.read_csv("data/census.csv")
+    df = pd.read_csv("data/clean.csv")
     test = df.drop('salary', axis=1).iloc[0].to_dict()
     return test
 @pytest.fixture()
 def data_high():
-    df = pd.read_csv("data/census.csv")
+    df = pd.read_csv("data/clean.csv")
     test = df.drop('salary', axis=1).iloc[9].to_dict()
     return test
 
