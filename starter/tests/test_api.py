@@ -28,7 +28,7 @@ def data_high():
 def test_get_data():
     r = client.get("/")
     assert r.status_code == 200
-    assert r.json() == {"Hello Geeks"}
+    assert r.json() == "Hello Geeks"
 
 
 def test_post_data_success(data_low):
