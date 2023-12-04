@@ -13,16 +13,27 @@ from app.main import app
 
 client = TestClient(app)
 
+def convert_names(dict_var):
+    replace_names = ["education-num", "marital-status", "capital-gain", "hours-per-week", "native-country"]
+    new_names = ["educationnum", "maritalstatus", "capitalgain", "hoursperweek", "nativecountry" ]
+    for old_name, new_name in zip(replace_names, new_names):
+        if old_name in dict_var:
+            data[new_name] = data.pop(old_name)
+    return dict_var
+
+    
 @pytest.fixture()
 def data_low():
     df = pd.read_csv("data/clean.csv")
     test = df.drop('salary', axis=1).iloc[0].to_dict()
-    return test
+    
+    return convert_names(test)
+    
 @pytest.fixture()
 def data_high():
     df = pd.read_csv("data/clean.csv")
     test = df.drop('salary', axis=1).iloc[9].to_dict()
-    return test
+    return convert_names(test)
 
 
 def test_get_data():
